@@ -1,0 +1,74 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+	string PriceForm(int price)
+	{
+		
+		string result = price.ToString("N0");
+		
+		return result;
+	}
+}
+
+@model ProductViewModel
+<div class="container">
+	<h1>Danh Sách Sản Phẩm</h1>
+
+@*<div class="list">
+		<div class="cate-title-container">
+			<h3 class="cate-title">Sản phẩm</h3>
+		</div>
+	<div class="row">
+		
+	@foreach (var pro in Model.Products)
+	{
+		<div class="item col-2">
+			<a asp-action="Detail" asp-route-id="@pro.Id" class="item-direct">
+			<div class="item-tile">
+				<div class="item-img-container"><img src="@pro.AvatarUrl" class="item-img" style="" /></div>
+				<div class="item-name-container"><h6 class="item-name" style="">@pro.Name</h6></div>
+				<div class="item-bottom">
+				<div class="item-price-container"><h5 class="item-price">@PriceForm(@pro.Price) đ</h5></div>
+				<div class="item-cate-container"><h6 class="item-cate">@pro.CategoryName</h6></div>
+				</div>
+			</div>
+			</a>
+		</div>
+	}
+	</div>
+</div>*@
+		@foreach(var cate in Model.Responses)
+		{
+			var ProductByCate = Model.Products.Where(i => i.CategoryId == cate.Id);
+		
+		if (ProductByCate.Count() > 0)
+		{
+			<div class="list">
+				<div class="cate-title-container">
+					<h4 class="cate-title">@cate.Name</h4>
+				</div>
+
+				<div class="row">
+					@foreach (var pro in ProductByCate)
+					{
+						<div class="item col-2">
+							<a asp-action="Detail" asp-route-id="@pro.Id" class="item-direct">
+								<div class="item-tile">
+									<div class="item-img-container"><img src="@pro.AvatarUrl" class="item-img" style="" /></div>
+									<div class="item-name-container"><h6 class="item-name" style="">@pro.Name</h6></div>
+									<div class="item-bottom">
+										<div class="item-price-container"><h5 class="item-price">@PriceForm(@pro.Price) đ</h5></div>
+										<div class="item-cate-container"><h6 class="item-cate">@pro.CategoryName</h6></div>
+									</div>
+								</div>
+							</a>
+						</div>
+					}
+				</div>
+			</div>
+		}
+
+	}
+		
+
+
+</div>
